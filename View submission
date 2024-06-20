@@ -1,0 +1,164 @@
+WITH KEYBOARD SHORTCUT CODE:
+Public Class ViewSubmissionsForm
+    Private submissions As New List(Of Submission)
+    Private currentIndex As Integer = 0
+
+    Private Class Submission
+        Public Property Name As String
+        Public Property Email As String
+        Public Property Phone As String
+        Public Property GithubLink As String
+
+        Public Sub New(name As String, email As String, phone As String, githubLink As String)
+            Me.Name = name
+            Me.Email = email
+            Me.Phone = phone
+            Me.GithubLink = githubLink
+        End Sub
+    End Class
+
+    Public Sub New()
+        InitializeComponent()
+        submissions = New List(Of Submission)()
+    End Sub
+
+    Public Sub AddSubmission(name As String, email As String, phone As String, githubLink As String)
+        Dim submission As New Submission(name, email, phone, githubLink)
+        submissions.Add(submission)
+    End Sub
+
+    Private Sub ViewSubmissionsForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        LoadSubmission()
+    End Sub
+
+    Private Sub LoadSubmission()
+        If submissions IsNot Nothing AndAlso submissions.Count > 0 Then
+            If currentIndex < submissions.Count Then
+                Dim submission As Submission = submissions(currentIndex)
+                txtName.Text = submission.Name
+                txtEmail.Text = submission.Email
+                txtPhone.Text = submission.Phone
+                txtGithubLink.Text = submission.GithubLink
+            Else
+                ClearFields()
+            End If
+        Else
+            ClearFields()
+        End If
+    End Sub
+
+    Private Sub ClearFields()
+        txtName.Clear()
+        txtEmail.Clear()
+        txtPhone.Clear()
+        txtGithubLink.Clear()
+    End Sub
+
+    Private Sub btnPrevious_Click(sender As Object, e As EventArgs) Handles btnPrevious.Click
+        PreviousSubmission()
+    End Sub
+
+    Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
+        NextSubmission()
+    End Sub
+
+    Private Sub ViewSubmissionsForm_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MyBase.KeyPress
+        If Control.ModifierKeys = Keys.Control Then
+            If e.KeyChar = "p" OrElse e.KeyChar = "P" Then
+                PreviousSubmission()
+            ElseIf e.KeyChar = "n" OrElse e.KeyChar = "N" Then
+                NextSubmission()
+            End If
+        End If
+    End Sub
+
+    Private Sub PreviousSubmission()
+        If currentIndex > 0 Then
+            currentIndex -= 1
+            LoadSubmission()
+        End If
+    End Sub
+
+    Private Sub NextSubmission()
+        If currentIndex < submissions.Count - 1 Then
+            currentIndex += 1
+            LoadSubmission()
+        End If
+    End Sub
+End Class
+
+
+WITHOUT KEYBOARD SHORTCUT CODE:
+Public Class ViewSubmissionsForm
+    Private submissions As New List(Of ViewSubmissionsForm.Submission)
+    Private currentIndex As Integer = 0
+
+    Private Class Submission
+        Public Property Name As String
+        Public Property Email As String
+        Public Property Phone As String
+        Public Property GithubLink As String
+
+        Public Sub New(name As String, email As String, phone As String, githubLink As String)
+            Me.Name = name
+            Me.Email = email
+            Me.Phone = phone
+            Me.GithubLink = githubLink
+        End Sub
+    End Class
+
+    Public Sub New()
+        InitializeComponent()
+        submissions = New List(Of ViewSubmissionsForm.Submission)()
+    End Sub
+
+    Public Sub AddSubmission(name As String, email As String, phone As String, githubLink As String)
+        Dim submission As New Submission(name, email, phone, githubLink)
+        submissions.Add(submission)
+    End Sub
+
+    Private Sub ViewSubmissionsForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        LoadSubmission()
+    End Sub
+
+    Private Sub LoadSubmission()
+        If submissions IsNot Nothing AndAlso submissions.Count > 0 Then
+            If currentIndex < submissions.Count Then
+                Dim submission As Submission = submissions(currentIndex)
+                txtName.Text = submission.Name
+                txtEmail.Text = submission.Email
+                txtPhone.Text = submission.Phone
+                txtGithubLink.Text = submission.GithubLink
+            Else
+                ClearFields()
+            End If
+        Else
+            ClearFields()
+        End If
+    End Sub
+
+    Private Sub ClearFields()
+        txtName.Clear()
+        txtEmail.Clear()
+        txtPhone.Clear()
+        txtGithubLink.Clear()
+    End Sub
+
+
+    Private Sub btnPrevious_Click(sender As Object, e As EventArgs) Handles btnPrevious.Click
+        If currentIndex > 0 Then
+            currentIndex -= 1
+            LoadSubmission()
+        End If
+
+    End Sub
+
+    Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
+        If currentIndex < submissions.Count - 1 Then
+            currentIndex += 1
+            LoadSubmission()
+        End If
+
+    End Sub
+End Class  
+
