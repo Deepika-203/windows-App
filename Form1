@@ -1,0 +1,37 @@
+Windows from App
+Firstly the Form1 code
+IF we use the keyboard shortcuts we firstly select keypress one 
+
+Using Keyboard shortcuts code:
+
+Public Class Form1
+    Private Sub Form1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MyBase.KeyPress
+        btnViewSubmissions.ShortcutKeys = Keys.Control Or Keys.C
+        btnCreateSubmission.ShortcutKeys = Keys.Control Or Keys.N
+    End Sub
+
+    Private Sub btnViewSubmissions_Click(sender As Object, e As EventArgs) Handles btnViewSubmissions.Click
+        Dim viewForm As New ViewSubmissionsForm()
+        viewForm.ShowDialog()
+    End Sub
+
+    Private Sub btnCreateSubmission_Click(sender As Object, e As EventArgs) Handles btnCreateSubmission.Click
+        Dim createForm As New CreateSubmissionForm()
+        createForm.ShowDialog()
+    End Sub
+End Class
+
+Without Keyboard shortcuts code:
+Public Class Form1
+
+    Private Sub btnViewSubmissions_Click(sender As Object, e As EventArgs) Handles btnViewSubmissions.Click
+        Dim viewForm As New ViewSubmissionsForm()
+        viewForm.ShowDialog()
+    End Sub
+
+    Private Sub btnCreateSubmission_Click(sender As Object, e As EventArgs) Handles btnCreateSubmission.Click
+        Dim createForm As New CreateSubmissionForm()
+        createForm.ShowDialog()
+    End Sub
+End Class
+
