@@ -1,0 +1,68 @@
+1.Initialise the project
+
+mkdir backend
+cd backend
+
+2.Intialise new node.js project
+Run the following command to create a package.json file for your project.
+npm init -y
+
+3.Install Express and TypeScript as dependencies for your project.
+npm install express typescript @types/node @types/express ts-node --save-dev
+
+4.Create TypeScript configuration:
+Create a tsconfig.json file in the root directory of your project.
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "strict": true
+  }
+}
+
+5.create a directory named src in your project's root directory. Inside the src directory, create a file named server.ts. 
+This file will contain the code for your Express server.
+
+6.Open the server.ts file and write the code for your Express server
+import express, { Request, Response } from 'express';
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware to parse JSON requests
+app.use(express.json());
+
+// Sample submissions data
+const submissions: any[] = [];
+
+// Ping endpoint
+app.get('/ping', (req: Request, res: Response) => {
+  res.json({ success: true });
+});
+
+// Submit endpoint
+app.post('/submit', (req: Request, res: Response) => {
+  const { name, email, phone, github_link, stopwatch_time } = req.body;
+  // Save the submission data
+  submissions.push({ name, email, phone, github_link, stopwatch_time });
+  res.json({ success: true });
+});
+
+// Read endpoint
+app.get('/read', (req: Request, res: Response) => {
+  const index = parseInt(req.query.index as string);
+  if (isNaN(index) || index < 0 || index >= submissions.length) {
+    return res.status(400).json({ error: 'Invalid index' });
+  }
+  const submission = submissions[index];
+  res.json(submission);
+});
+
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+7.Run the server
+npx ts-node src/server.ts
