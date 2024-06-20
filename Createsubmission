@@ -1,0 +1,64 @@
+With keyboard shortcut:
+
+Public Class CreateSubmissionForm
+    Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
+        SubmitForm()
+    End Sub
+
+    Private Sub CreateSubmissionForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        MessageBox.Show("Slidely Task2 - Slidely Form App", "Form Message")
+    End Sub
+
+    Private Sub CreateSubmissionForm_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
+        If Control.ModifierKeys = Keys.Control AndAlso e.KeyChar = "s" Then
+            SubmitForm()
+        End If
+    End Sub
+
+    Private Sub SubmitForm()
+        Dim name As String = txtName.Text
+        Dim email As String = txtEmail.Text
+        Dim phone As String = txtPhone.Text
+        Dim githubLink As String = txtGithubLink.Text
+
+        Dim viewForm As New ViewSubmissionsForm()
+        viewForm.AddSubmission(name, email, phone, githubLink)
+        viewForm.ShowDialog()
+
+        ' Here you can send the data to the backend or perform other actions
+
+        MessageBox.Show("Form submitted successfully!" & vbCrLf &
+                        "Name: " & name & vbCrLf &
+                        "Email: " & email & vbCrLf &
+                        "Phone: " & phone & vbCrLf &
+                        "GitHub Link: " & githubLink & vbCrLf, "Submission Confirmation")
+    End Sub
+End Class
+
+without keyboard shortcut code:
+
+Public Class CreateSubmissionForm
+    Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
+        Dim name As String = txtName.Text
+        Dim email As String = txtEmail.Text
+        Dim phone As String = txtPhone.Text
+        Dim githubLink As String = txtGithubLink.Text
+
+        Dim viewForm As New ViewSubmissionsForm()
+        viewForm.AddSubmission(name, email, phone, githubLink)
+        viewForm.ShowDialog()
+
+        ' Here you can send the data to the backend or perform other actions
+
+        MessageBox.Show("Form submitted successfully!" & vbCrLf &
+                        "Name: " & name & vbCrLf &
+                        "Email: " & email & vbCrLf &
+                        "Phone: " & phone & vbCrLf &
+                        "GitHub Link: " & githubLink & vbCrLf, "Submission Confirmation")
+    End Sub
+    Private Sub CreateSubmissionForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        MessageBox.Show("Slidely Task2 - Slidely Form App", "Form Message")
+
+    End Sub
+
+End Class
